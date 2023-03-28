@@ -1,5 +1,5 @@
-import React from 'react'
-import axios from 'axios'
+import React from "react";
+import axios from "axios";
 
 class Quote extends React.Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class Quote extends React.Component {
       .get("https://type.fit/api/quotes")
       .then((response) => {
         let i = Math.floor(Math.random() * 1643);
-        const { text, author } = response.data[i];
+        let { text, author } = response.data[i];
+        if (!author) author = "unknown";
         this.setState({ quote: text, author: author });
       })
       .catch((error) => console.log("Error ->", error));
@@ -32,13 +33,7 @@ class Quote extends React.Component {
         <div id="quote-box">
           <div id="text">{quote}</div>
           <div id="author">{author}</div>
-          <div id="button">
-            <a id="tweet-quote" href="twitter.com/intent/tweet">
-              <i className='fa fa-twitter'></i>
-            </a>
-            <a id="tweet-quote2" href="twitter.com/intent/tweet">
-              <i className='fa fa-twitter'></i>
-            </a>
+          <div id="buttons">
             <button id="new-quote" onClick={this.fetchQuote}>
               <span>New Quote</span>
             </button>
